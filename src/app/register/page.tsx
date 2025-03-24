@@ -1,5 +1,11 @@
+import RegisterForm from "@/components/modules/auth/register/RegisterForm";
+
 const RegisterPage = () => {
-	return <div>This is RegisterPage component.</div>;
+	return (
+		<div className="h-screen w-screen flex items-center justify-center">
+			<RegisterForm />
+		</div>
+	);
 };
 
 export default RegisterPage;
