@@ -12,28 +12,25 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { registerUser } from "@/services/authServices";
+import { loginUser } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { registrationSchema } from "./registerValidation";
+import { loginSchema } from "./loginValidation";
 
-const RegisterForm = () => {
+const LoginForm = () => {
 	const form = useForm({
-		resolver: zodResolver(registrationSchema),
+		resolver: zodResolver(loginSchema),
 	});
 
 	const {
 		formState: { isSubmitting },
 	} = form;
 
-	const password = form.watch("password");
-	const passwordConfirm = form.watch("passwordConfirm");
-
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			const res = await registerUser(data);
+			const res = await loginUser(data);
 
 			if (res?.success) {
 				toast.success(res?.message);
@@ -50,32 +47,12 @@ const RegisterForm = () => {
 			<div className="flex items-center space-x-4 mb-8">
 				<Logo />
 				<div>
-					<h1 className="text-xl font-semibold">Register</h1>
-					<p className="font-extralight text-sm text-gray-600">
-						Join us today and start your journey!
-					</p>
+					<h1 className="text-xl font-semibold">Login</h1>
+					<p className="font-extralight text-sm text-gray-600">Welcome back!</p>
 				</div>
 			</div>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-					<FormField
-						control={form.control}
-						name="name"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Name</FormLabel>
-								<FormControl>
-									<Input
-										placeholder="Name"
-										{...field}
-										value={field.value || ""}
-									/>
-								</FormControl>
-								<FormDescription />
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
 					<FormField
 						control={form.control}
 						name="email"
@@ -113,41 +90,19 @@ const RegisterForm = () => {
 							</FormItem>
 						)}
 					/>
-					<FormField
-						control={form.control}
-						name="passwordConfirm"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Confirm Password</FormLabel>
-								<FormControl>
-									<Input type="password" {...field} value={field.value || ""} />
-								</FormControl>
-
-								{passwordConfirm && password !== passwordConfirm ? (
-									<FormMessage>Password does not match</FormMessage>
-								) : (
-									<FormMessage />
-								)}
-							</FormItem>
-						)}
-					/>
-					<Button
-						type="submit"
-						disabled={!!passwordConfirm && password !== passwordConfirm}
-						className="mt-5 cursor-pointer"
-					>
-						{isSubmitting ? "Registering..." : "Register"}
+					<Button type="submit" className="mt-5 cursor-pointer">
+						{isSubmitting ? "Logging..." : "Login"}
 					</Button>
 				</form>
 			</Form>
 			<p className="text-sm text-gray-600 text-center my-3">
-				Already have an account?
-				<Link href="/login" className="text-primary ml-1 hover:underline">
-					Login
+				Do not have any account?
+				<Link href="/register" className="text-primary ml-1 hover:underline">
+					Register
 				</Link>
 			</p>
 		</div>
 	);
 };
 
-export default RegisterForm;
+export default LoginForm;
