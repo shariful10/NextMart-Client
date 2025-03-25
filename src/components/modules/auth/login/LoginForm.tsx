@@ -12,9 +12,10 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginUser } from "@/services/authServices";
+import { loginUser, reCaptchaTokenVerification } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -25,12 +26,23 @@ const LoginForm = () => {
 		resolver: zodResolver(loginSchema),
 	});
 
+	const [reCaptchaStatus, setReCaptchaStatus] = useState<boolean>(false);
+
 	const {
 		formState: { isSubmitting },
 	} = form;
 
-	const handleReCaptcha = (value: string | null) => {
-		console.log(value);
+	const handleReCaptcha = async (value: string | null) => {
+		try {
+			const res = await reCaptchaTokenVerification(value!);
+			console.log(res);
+
+			if (res?.success) {
+				setReCaptchaStatus(true);
+			}
+		} catch (err: any) {
+			console.error(err);
+		}
 	};
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -101,7 +113,11 @@ const LoginForm = () => {
 							onChange={handleReCaptcha}
 						/>
 					</div>
-					<Button type="submit" className="mt-5 cursor-pointer w-full">
+					<Button
+						disabled={reCaptchaStatus ? false : true}
+						type="submit"
+						className="mt-5 cursor-pointer w-full"
+					>
 						{isSubmitting ? "Logging..." : "Login"}
 					</Button>
 				</form>
