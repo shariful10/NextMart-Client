@@ -134,7 +134,7 @@ const RegisterForm = () => {
 					<Button
 						type="submit"
 						disabled={!!passwordConfirm && password !== passwordConfirm}
-						className="mt-5 cursor-pointer"
+						className="mt-5 cursor-pointer w-full"
 					>
 						{isSubmitting ? "Registering..." : "Register"}
 					</Button>

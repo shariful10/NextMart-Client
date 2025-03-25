@@ -90,7 +90,7 @@ const LoginForm = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" className="mt-5 cursor-pointer">
+					<Button type="submit" className="mt-5 cursor-pointer w-full">
 						{isSubmitting ? "Logging..." : "Login"}
 					</Button>
 				</form>
