@@ -5,22 +5,27 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registrationSchema } from "./registerValidation";
 
 const RegisterForm = () => {
-	const form = useForm();
+	const form = useForm({
+		resolver: zodResolver(registrationSchema),
+	});
 
 	const password = form.watch("password");
 	const passwordConfirm = form.watch("passwordConfirm");
 
-	const onSubmit = (data: FieldValues) => {
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		console.log(data);
 	};
 
@@ -50,8 +55,8 @@ const RegisterForm = () => {
 										value={field.value || ""}
 									/>
 								</FormControl>
-								{/* <FormDescription />
-							<FormMessage /> */}
+								<FormDescription />
+								<FormMessage />
 							</FormItem>
 						)}
 					/>
@@ -68,6 +73,8 @@ const RegisterForm = () => {
 										value={field.value || ""}
 									/>
 								</FormControl>
+								<FormDescription />
+								<FormMessage />
 							</FormItem>
 						)}
 					/>
@@ -85,6 +92,8 @@ const RegisterForm = () => {
 										value={field.value || ""}
 									/>
 								</FormControl>
+								<FormDescription />
+								<FormMessage />
 							</FormItem>
 						)}
 					/>
@@ -106,7 +115,11 @@ const RegisterForm = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" className="mt-5 cursor-pointer">
+					<Button
+						type="submit"
+						disabled={!!passwordConfirm && password !== passwordConfirm}
+						className="mt-5 cursor-pointer"
+					>
 						Register
 					</Button>
 				</form>
