@@ -40,22 +40,31 @@ export const Navbar = () => {
 					/>
 				</div>
 				<nav className="flex gap-2">
-					<Button variant="outline" className="rounded-full p-0 size-10">
+					<Button
+						variant="outline"
+						className="rounded-full p-0 size-10 cursor-pointer"
+					>
 						<Heart />
 					</Button>
-					<Button variant="outline" className="rounded-full p-0 size-10">
+					<Button
+						variant="outline"
+						className="rounded-full p-0 size-10 cursor-pointer"
+					>
 						<ShoppingBag />
 					</Button>
 					{user ? (
 						<>
 							<Link href="/create-shop">
-								<Button variant="outline" className="rounded-full">
+								<Button
+									variant="outline"
+									className="rounded-full cursor-pointer"
+								>
 									Create Shop
 								</Button>
 							</Link>
 							<DropdownMenu>
 								<DropdownMenuTrigger>
-									<Avatar>
+									<Avatar className="cursor-pointer">
 										<AvatarImage src="https://github.com/shadcn.png" />
 										<AvatarFallback>CN</AvatarFallback>
 									</Avatar>
