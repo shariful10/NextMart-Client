@@ -12,9 +12,11 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { registerUser } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { registrationSchema } from "./registerValidation";
 
 const RegisterForm = () => {
@@ -22,11 +24,25 @@ const RegisterForm = () => {
 		resolver: zodResolver(registrationSchema),
 	});
 
+	const {
+		formState: { isSubmitting },
+	} = form;
+
 	const password = form.watch("password");
 	const passwordConfirm = form.watch("passwordConfirm");
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		try {
+			const res = await registerUser(data);
+
+			if (res?.success) {
+				toast.success(res?.message);
+			} else {
+				toast.error(res?.message);
+			}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -120,7 +136,7 @@ const RegisterForm = () => {
 						disabled={!!passwordConfirm && password !== passwordConfirm}
 						className="mt-5 cursor-pointer"
 					>
-						Register
+						{isSubmitting ? "Registering..." : "Register"}
 					</Button>
 				</form>
 			</Form>
