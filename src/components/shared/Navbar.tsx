@@ -1,3 +1,5 @@
+"use client";
+
 import Logo from "@/app/assets/Logo";
 import { Heart, LogOut, ShoppingBag } from "lucide-react";
 import Link from "next/link";
@@ -12,8 +14,17 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/authServices";
 
-export default function Navbar() {
+export const Navbar = () => {
+	const { user, setIsLoading } = useUser();
+
+	const handleLogOut = () => {
+		logout();
+		setIsLoading(true);
+	};
+
 	return (
 		<header className="border-b w-full">
 			<div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -35,37 +46,46 @@ export default function Navbar() {
 					<Button variant="outline" className="rounded-full p-0 size-10">
 						<ShoppingBag />
 					</Button>
-					<Link href="/login">
-						<Button variant="outline" className="rounded-full">
-							Login
-						</Button>
-					</Link>
-					<Link href="/create-shop">
-						<Button variant="outline" className="rounded-full">
-							Create Shop
-						</Button>
-					</Link>
-					<DropdownMenu>
-						<DropdownMenuTrigger>
-							<Avatar>
-								<AvatarImage src="https://github.com/shadcn.png" />
-								<AvatarFallback>CN</AvatarFallback>
-							</Avatar>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent className="absolute -left-5">
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>Profile</DropdownMenuItem>
-							<DropdownMenuItem>Dashboard</DropdownMenuItem>
-							<DropdownMenuItem>My Shop</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem className="cursor-pointer">
-								<LogOut /> <span>Log Out</span>
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
+					{user ? (
+						<>
+							<Link href="/create-shop">
+								<Button variant="outline" className="rounded-full">
+									Create Shop
+								</Button>
+							</Link>
+							<DropdownMenu>
+								<DropdownMenuTrigger>
+									<Avatar>
+										<AvatarImage src="https://github.com/shadcn.png" />
+										<AvatarFallback>CN</AvatarFallback>
+									</Avatar>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent className="absolute -left-5">
+									<DropdownMenuLabel>My Account</DropdownMenuLabel>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem>Profile</DropdownMenuItem>
+									<DropdownMenuItem>Dashboard</DropdownMenuItem>
+									<DropdownMenuItem>My Shop</DropdownMenuItem>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem
+										onClick={handleLogOut}
+										className="cursor-pointer hover:text-red-500"
+									>
+										<LogOut className="hover:text-red-500" />{" "}
+										<span>Log Out</span>
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</>
+					) : (
+						<Link href="/login">
+							<Button variant="outline" className="rounded-full">
+								Login
+							</Button>
+						</Link>
+					)}
 				</nav>
 			</div>
 		</header>
 	);
-}
+};
