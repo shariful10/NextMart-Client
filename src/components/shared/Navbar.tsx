@@ -1,7 +1,17 @@
 import Logo from "@/app/assets/Logo";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart, LogOut, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
 	return (
@@ -25,6 +35,35 @@ export default function Navbar() {
 					<Button variant="outline" className="rounded-full p-0 size-10">
 						<ShoppingBag />
 					</Button>
+					<Link href="/login">
+						<Button variant="outline" className="rounded-full">
+							Login
+						</Button>
+					</Link>
+					<Link href="/create-shop">
+						<Button variant="outline" className="rounded-full">
+							Create Shop
+						</Button>
+					</Link>
+					<DropdownMenu>
+						<DropdownMenuTrigger>
+							<Avatar>
+								<AvatarImage src="https://github.com/shadcn.png" />
+								<AvatarFallback>CN</AvatarFallback>
+							</Avatar>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent className="absolute -left-5">
+							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem>Profile</DropdownMenuItem>
+							<DropdownMenuItem>Dashboard</DropdownMenuItem>
+							<DropdownMenuItem>My Shop</DropdownMenuItem>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem className="cursor-pointer">
+								<LogOut /> <span>Log Out</span>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</nav>
 			</div>
 		</header>
