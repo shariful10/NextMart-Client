@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { loginUser } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import ReCAPTCHA from "react-google-recaptcha";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
@@ -27,6 +28,10 @@ const LoginForm = () => {
 	const {
 		formState: { isSubmitting },
 	} = form;
+
+	const handleReCaptcha = (value: string | null) => {
+		console.log(value);
+	};
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
@@ -90,6 +95,12 @@ const LoginForm = () => {
 							</FormItem>
 						)}
 					/>
+					<div className="flex flex-col justify-center items-center w-full">
+						<ReCAPTCHA
+							sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY as string}
+							onChange={handleReCaptcha}
+						/>
+					</div>
 					<Button type="submit" className="mt-5 cursor-pointer w-full">
 						{isSubmitting ? "Logging..." : "Login"}
 					</Button>
