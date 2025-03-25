@@ -1,7 +1,9 @@
-import { getCurrentUser } from "@/services/authServices";
+"use client";
 
-const HomePage = async () => {
-	const user = await getCurrentUser();
+import { useUser } from "@/context/UserContext";
+
+const HomePage = () => {
+	const user = useUser();
 	console.log(user);
 
 	return (
