@@ -196,13 +196,14 @@ export const CreateShopForm = () => {
 							/>
 						</div>
 
-						{/* {imagePreview.length > 0 ? (
-							<ImagePreviewer
-								setImageFiles={setImageFiles}
-								imagePreview={imagePreview}
-								setImagePreview={setImagePreview}
-								className="mt-8"
-							/>
+						{imagePreview.length > 0 ? (
+							// <ImagePreviewer
+							// 	setImageFiles={setImageFiles}
+							// 	imagePreview={imagePreview}
+							// 	setImagePreview={setImagePreview}
+							// 	className="mt-8"
+							// />
+							<></>
 						) : (
 							<div className="mt-8">
 								<NMImageUploader
@@ -211,16 +212,15 @@ export const CreateShopForm = () => {
 									label="Upload Logo"
 								/>
 							</div>
-						)} */}
-
-						<div className="mt-8">
+						)}
+					</div>
+					{/* <div className="mt-8">
 							<NMImageUploader
 								setImageFiles={setImageFiles}
 								setImagePreview={setImagePreview}
 								label="Upload Logo"
 							/>
-						</div>
-					</div>
+						</div> */}
 
 					<Button type="submit" className="mt-5 w-full">
 						{isSubmitting ? "Creating...." : "Create"}

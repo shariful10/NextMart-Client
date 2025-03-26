@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Input } from "../../input";
 
 type TImageUploader = {
@@ -10,12 +10,27 @@ type TImageUploader = {
 	setImagePreview: Dispatch<SetStateAction<string[]>>;
 };
 
-const NMImageUploader = () => {
-	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+const NMImageUploader = ({
+	setImageFiles,
+	setImagePreview,
+}: TImageUploader) => {
+	// const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files![0];
 		setImageFiles((prev) => [...prev, file]);
+
+		if (file) {
+			const reader = new FileReader();
+
+			reader.onload = () => {
+				setImagePreview((prev) => [...prev, reader.result as string]);
+			};
+
+			reader.readAsDataURL(file);
+		}
+
+		e.target.value = "";
 	};
 
 	return (
@@ -34,6 +49,11 @@ const NMImageUploader = () => {
 			>
 				Upload Logo
 			</label>
+			{/* <div>
+				{imagePreview?.map((prev, idx) => (
+					<Image key={idx} src={prev} alt="images" width={100} height={100} />
+				))}
+			</div> */}
 		</div>
 	);
 };
