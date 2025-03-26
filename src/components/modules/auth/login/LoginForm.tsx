@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { loginUser, reCaptchaTokenVerification } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -27,6 +28,10 @@ const LoginForm = () => {
 	});
 
 	const [reCaptchaStatus, setReCaptchaStatus] = useState<boolean>(false);
+
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const redirect = searchParams.get("redirectPath");
 
 	const {
 		formState: { isSubmitting },
@@ -51,6 +56,12 @@ const LoginForm = () => {
 
 			if (res?.success) {
 				toast.success(res?.message);
+
+				if (redirect) {
+					router.push(redirect);
+				} else {
+					router.push("/profile");
+				}
 			} else {
 				toast.error(res?.message);
 			}
