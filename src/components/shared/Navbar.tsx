@@ -14,15 +14,23 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { protectedRoutes } from "@/constants";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/authServices";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Navbar = () => {
+	const router = useRouter();
+	const pathname = usePathname();
 	const { user, setIsLoading } = useUser();
 
 	const handleLogOut = () => {
 		logout();
 		setIsLoading(true);
+
+		if (protectedRoutes.some((route) => pathname.match(route))) {
+			router.push("/");
+		}
 	};
 
 	return (
