@@ -51,8 +51,8 @@ export const CreateShopForm = () => {
 			if (res.success) {
 				toast.success(res.message);
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (err: any) {
+			console.error(err);
 		}
 	};
 
