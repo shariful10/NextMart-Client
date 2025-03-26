@@ -55,10 +55,7 @@ export const Navbar = () => {
 					{user ? (
 						<>
 							<Link href="/create-shop">
-								<Button
-									variant="outline"
-									className="rounded-full cursor-pointer"
-								>
+								<Button className="rounded-full cursor-pointer">
 									Create Shop
 								</Button>
 							</Link>
