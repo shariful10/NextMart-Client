@@ -1,7 +1,8 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { Input } from "../../input";
 
 type TImageUploader = {
 	label?: string;
@@ -11,19 +12,20 @@ type TImageUploader = {
 };
 
 const NMImageUploader = ({
+	label = "Image Uploader",
+	className,
 	setImageFiles,
 	setImagePreview,
 }: TImageUploader) => {
-	// const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files![0];
+
 		setImageFiles((prev) => [...prev, file]);
 
 		if (file) {
 			const reader = new FileReader();
 
-			reader.onload = () => {
+			reader.onloadend = () => {
 				setImagePreview((prev) => [...prev, reader.result as string]);
 			};
 
@@ -34,26 +36,21 @@ const NMImageUploader = ({
 	};
 
 	return (
-		<div>
+		<div className={cn("flex flex-col items-center w-full gap-4", className)}>
 			<Input
-				onChange={handleImageChange}
+				id="image-upload"
 				type="file"
-				multiple
 				accept="image/*"
+				multiple
 				className="hidden"
-				id="image-uploader"
+				onChange={handleImageChange}
 			/>
 			<label
+				htmlFor="image-upload"
 				className="w-full h-36 md:size-36 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-center text-sm text-gray-500 hover:bg-gray-50 transition"
-				htmlFor="image-uploader"
 			>
-				Upload Logo
+				{label}
 			</label>
-			{/* <div>
-				{imagePreview?.map((prev, idx) => (
-					<Image key={idx} src={prev} alt="images" width={100} height={100} />
-				))}
-			</div> */}
 		</div>
 	);
 };

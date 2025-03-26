@@ -3,6 +3,7 @@
 import Logo from "@/app/assets/Logo";
 import { Button } from "@/components/ui/button";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import {
 	Form,
 	FormControl,
@@ -197,15 +198,14 @@ export const CreateShopForm = () => {
 						</div>
 
 						{imagePreview.length > 0 ? (
-							// <ImagePreviewer
-							// 	setImageFiles={setImageFiles}
-							// 	imagePreview={imagePreview}
-							// 	setImagePreview={setImagePreview}
-							// 	className="mt-8"
-							// />
-							<></>
+							<ImagePreviewer
+								setImageFiles={setImageFiles}
+								imagePreview={imagePreview}
+								setImagePreview={setImagePreview}
+								className="mt-6"
+							/>
 						) : (
-							<div className="mt-8">
+							<div className="mt-6">
 								<NMImageUploader
 									setImageFiles={setImageFiles}
 									setImagePreview={setImagePreview}
@@ -214,14 +214,6 @@ export const CreateShopForm = () => {
 							</div>
 						)}
 					</div>
-					{/* <div className="mt-8">
-							<NMImageUploader
-								setImageFiles={setImageFiles}
-								setImagePreview={setImagePreview}
-								label="Upload Logo"
-							/>
-						</div> */}
-
 					<Button type="submit" className="mt-5 w-full">
 						{isSubmitting ? "Creating...." : "Create"}
 					</Button>
