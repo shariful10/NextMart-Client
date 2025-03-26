@@ -2,6 +2,7 @@
 
 import Logo from "@/app/assets/Logo";
 import { Button } from "@/components/ui/button";
+import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import {
 	Form,
 	FormControl,
@@ -16,8 +17,8 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export const CreateShopForm = () => {
-	// const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-	// const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+	const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
 	const form = useForm();
 
@@ -69,7 +70,6 @@ export const CreateShopForm = () => {
 								</FormItem>
 							)}
 						/>
-
 						<FormField
 							control={form.control}
 							name="address"
@@ -109,7 +109,6 @@ export const CreateShopForm = () => {
 								</FormItem>
 							)}
 						/>
-
 						<FormField
 							control={form.control}
 							name="establishedYear"
@@ -136,7 +135,6 @@ export const CreateShopForm = () => {
 								</FormItem>
 							)}
 						/>
-
 						<FormField
 							control={form.control}
 							name="socialMediaLinks.facebook"
@@ -177,7 +175,6 @@ export const CreateShopForm = () => {
 							)}
 						/>
 					</div>
-
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 items-center">
 						<div className="col-span-4 md:col-span-3">
 							<FormField
@@ -215,6 +212,14 @@ export const CreateShopForm = () => {
 								/>
 							</div>
 						)} */}
+
+						<div className="mt-8">
+							<NMImageUploader
+								setImageFiles={setImageFiles}
+								setImagePreview={setImagePreview}
+								label="Upload Logo"
+							/>
+						</div>
 					</div>
 
 					<Button type="submit" className="mt-5 w-full">
