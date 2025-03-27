@@ -19,8 +19,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createCategory } from "@/services/category";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const CreateCategoryModal = () => {
 	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -33,22 +35,22 @@ const CreateCategoryModal = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		console.log(data);
-		// try {
-		//   const formData = new FormData();
-		//   formData.append("data", JSON.stringify(data));
-		//   formData.append("icon", imageFiles[0] as File);
+		try {
+			const formData = new FormData();
+			formData.append("data", JSON.stringify(data));
+			formData.append("icon", imageFiles[0] as File);
 
-		//   const res = await createCategory(formData);
-		//   console.log(res);
+			const res = await createCategory(formData);
+			console.log(res);
 
-		//   if (res?.success) {
-		//     toast.success(res?.message);
-		//   } else {
-		//     toast.error(res?.message);
-		//   }
-		// } catch (err: any) {
-		//   console.error(err);
-		// }
+			if (res?.success) {
+				toast.success(res?.message);
+			} else {
+				toast.error(res?.message);
+			}
+		} catch (err: any) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -60,7 +62,6 @@ const CreateCategoryModal = () => {
 				<DialogHeader>
 					<DialogTitle>Create Product Category</DialogTitle>
 				</DialogHeader>
-
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)}>
 						<FormField
