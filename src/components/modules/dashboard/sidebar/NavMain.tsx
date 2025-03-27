@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import {
 	Collapsible,
@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/collapsible";
 import {
 	SidebarGroup,
-	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuAction,
 	SidebarMenuButton,
@@ -18,13 +17,13 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
 import { TNavMainProps } from "@/types";
+import Link from "next/link";
 
 export const NavMain = ({ items }: { items: TNavMainProps }) => {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Menu</SidebarGroupLabel>
+			{/* <SidebarGroupLabel>Menu</SidebarGroupLabel> */}
 			<SidebarMenu>
 				{items.map((item) => (
 					<Collapsible

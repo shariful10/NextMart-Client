@@ -24,7 +24,15 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const CreateCategoryModal = () => {
+type TCreateCategoryModalProps = {
+	isOpen: boolean;
+	onOpenChange: (isOpen: boolean) => void;
+};
+
+const CreateCategoryModal = ({
+	isOpen,
+	onOpenChange,
+}: TCreateCategoryModalProps) => {
 	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
 	const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
@@ -54,7 +62,7 @@ const CreateCategoryModal = () => {
 	};
 
 	return (
-		<Dialog>
+		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogTrigger asChild>
 				<Button>Create Category</Button>
 			</DialogTrigger>
