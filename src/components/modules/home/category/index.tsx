@@ -1,4 +1,5 @@
 import CategoryCard from "@/components/ui/core/CategoryCard";
+import NMContainer from "@/components/ui/core/NMContainer";
 import { getAllCategories } from "@/services/category";
 import { TCategory } from "@/types";
 import SectionTitle from "../SectionTitle";
@@ -6,7 +7,7 @@ import SectionTitle from "../SectionTitle";
 const Category = async () => {
 	const { data: categories } = await getAllCategories();
 	return (
-		<div className="container mx-auto my-20">
+		<NMContainer className="my-20">
 			<SectionTitle title="Category" BtnUrl="/products" BtnLabel="View All" />
 			<div className="grid grid-cols-6 gap-8 my-5">
 				{Array(12)
@@ -15,7 +16,7 @@ const Category = async () => {
 						<CategoryCard key={idx} category={category} />
 					))}
 			</div>
-		</div>
+		</NMContainer>
 	);
 };
 

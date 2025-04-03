@@ -34,7 +34,7 @@ export const Navbar = () => {
 	};
 
 	return (
-		<header className="border-b w-full">
+		<header className="border-b w-full sticky top-0 z-10 bg-background scroll-smooth">
 			<div className="container flex justify-between items-center mx-auto h-16 px-3">
 				<Link href="/" className="text-2xl font-black flex items-center">
 					<Logo />

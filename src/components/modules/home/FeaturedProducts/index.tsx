@@ -1,3 +1,4 @@
+import NMContainer from "@/components/ui/core/NMContainer";
 import ProductCard from "@/components/ui/core/ProductCard";
 import { getAllProducts } from "@/services/product";
 import { TProduct } from "@/types";
@@ -8,7 +9,7 @@ const FeaturedProducts = async () => {
 
 	return (
 		<div className="bg-white bg-opacity-50 py-10">
-			<div className="container mx-auto">
+			<NMContainer className="my-16">
 				<SectionTitle
 					title="Featured Products"
 					BtnUrl="/products"
@@ -22,7 +23,7 @@ const FeaturedProducts = async () => {
 							<ProductCard key={idx} product={product} />
 						))}
 				</div>
-			</div>
+			</NMContainer>
 		</div>
 	);
 };
