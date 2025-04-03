@@ -1,5 +1,6 @@
 "use client";
 
+import HeroSection from "@/components/modules/home/heroSection";
 import { useUser } from "@/context/UserContext";
 
 const HomePage = () => {
@@ -8,7 +9,7 @@ const HomePage = () => {
 
 	return (
 		<div>
-			<h1>Welcome to NextMart Home page</h1>
+			<HeroSection />
 		</div>
 	);
 };
