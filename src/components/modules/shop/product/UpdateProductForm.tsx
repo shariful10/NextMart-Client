@@ -5,10 +5,10 @@ import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import {
 	Form,
-	FormControl,
-	FormField,
 	FormItem,
+	FormField,
 	FormLabel,
+	FormControl,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -16,19 +16,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
+	useForm,
 	FieldValues,
 	SubmitHandler,
 	useFieldArray,
-	useForm,
 } from "react-hook-form";
 
 import Logo from "@/app/assets/Logo";
 import {
 	Select,
-	SelectContent,
 	SelectItem,
-	SelectTrigger,
 	SelectValue,
+	SelectContent,
+	SelectTrigger,
 } from "@/components/ui/select";
 import { getAllBrands } from "@/services/brand";
 import { getAllCategories } from "@/services/category";
@@ -129,8 +129,6 @@ export default function UpdateProductForm({ product }: { product: TProduct }) {
 			(item: { key: string; value: string }) =>
 				(specification[item.key] = item.value)
 		);
-
-		// console.log({ availableColors, keyFeatures, specification });
 
 		const modifiedData = {
 			...data,
@@ -408,17 +406,17 @@ export default function UpdateProductForm({ product }: { product: TProduct }) {
 							</Button>
 						</div>
 
-						{specFields.map((specField, index) => (
+						{specFields.map((specField, idx) => (
 							<div
 								key={specField.id}
 								className="grid grid-cols-1 gap-4 md:grid-cols-2 my-5"
 							>
 								<FormField
 									control={form.control}
-									name={`specification.${index}.key`}
+									name={`specification.${idx}.key`}
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Feature name {index + 1}</FormLabel>
+											<FormLabel>Feature name {idx + 1}</FormLabel>
 											<FormControl>
 												<Input {...field} value={field.value || ""} />
 											</FormControl>
@@ -428,10 +426,10 @@ export default function UpdateProductForm({ product }: { product: TProduct }) {
 								/>
 								<FormField
 									control={form.control}
-									name={`specification.${index}.value`}
+									name={`specification.${idx}.value`}
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Feature Description {index + 1}</FormLabel>
+											<FormLabel>Feature Description {idx + 1}</FormLabel>
 											<FormControl>
 												<Input {...field} value={field.value || ""} />
 											</FormControl>
