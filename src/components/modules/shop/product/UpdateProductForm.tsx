@@ -5,10 +5,10 @@ import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import {
 	Form,
-	FormItem,
-	FormField,
-	FormLabel,
 	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -16,19 +16,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
-	useForm,
 	FieldValues,
 	SubmitHandler,
 	useFieldArray,
+	useForm,
 } from "react-hook-form";
 
 import Logo from "@/app/assets/Logo";
 import {
 	Select,
-	SelectItem,
-	SelectValue,
 	SelectContent,
+	SelectItem,
 	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
 import { getAllBrands } from "@/services/brand";
 import { getAllCategories } from "@/services/category";
@@ -37,7 +37,7 @@ import { TBrand, TCategory, TProduct } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default function UpdateProductForm({ product }: { product: TProduct }) {
+const UpdateProductForm = ({ product }: { product: TProduct }) => {
 	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
 	const [imagePreview, setImagePreview] = useState<string[] | []>(
 		product?.imageUrls || []
@@ -205,7 +205,7 @@ export default function UpdateProductForm({ product }: { product: TProduct }) {
 							control={form.control}
 							name="category"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="min-w-full">
 									<FormLabel>Category</FormLabel>
 									<Select
 										onValueChange={field.onChange}
@@ -448,4 +448,6 @@ export default function UpdateProductForm({ product }: { product: TProduct }) {
 			</Form>
 		</div>
 	);
-}
+};
+
+export default UpdateProductForm;
