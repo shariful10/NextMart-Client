@@ -1,16 +1,12 @@
-"use client";
-
+import Category from "@/components/modules/home/category";
 import HeroSection from "@/components/modules/home/heroSection";
-import { useUser } from "@/context/UserContext";
 
 const HomePage = () => {
-	const user = useUser();
-	console.log(user);
-
 	return (
-		<div>
+		<>
 			<HeroSection />
-		</div>
+			<Category />
+		</>
 	);
 };
 
