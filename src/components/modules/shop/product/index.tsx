@@ -1,15 +1,19 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import NMTable from "@/components/ui/core/NMTable";
 import { TProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import NMTable from "@/components/ui/core/NMTable";
+import { useState } from "react";
 
 const ManageProducts = ({ products }: { products: TProduct[] }) => {
 	const router = useRouter();
+	const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+	console.log(selectedIds);
 
 	const handleView = (product: TProduct) => {
 		console.log("Viewing product:", product);
@@ -20,6 +24,38 @@ const ManageProducts = ({ products }: { products: TProduct[] }) => {
 	};
 
 	const columns: ColumnDef<TProduct>[] = [
+		{
+			id: "select",
+			header: ({ table }) => (
+				<Checkbox
+					checked={
+						table.getIsAllPageRowsSelected() ||
+						(table.getIsSomePageRowsSelected() && "indeterminate")
+					}
+					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+					aria-label="Select all"
+				/>
+			),
+			cell: ({ row }) => (
+				<Checkbox
+					checked={row.getIsSelected()}
+					onCheckedChange={(value) => {
+						if (value) {
+							setSelectedIds((prev) => [...prev, row.original._id]);
+						} else {
+							setSelectedIds(
+								selectedIds.filter((id) => id !== row.original._id)
+							);
+						}
+
+						row.toggleSelected(!!value);
+					}}
+					aria-label="Select row"
+				/>
+			),
+			enableSorting: false,
+			enableHiding: false,
+		},
 		{
 			accessorKey: "name",
 			header: "Product Name",
@@ -39,12 +75,12 @@ const ManageProducts = ({ products }: { products: TProduct[] }) => {
 		{
 			accessorKey: "category",
 			header: "Category",
-			cell: ({ row }) => <span>{row.original.category.name}</span>,
+			cell: ({ row }) => <span>{row.original.category?.name}</span>,
 		},
 		{
 			accessorKey: "brand",
 			header: "Brand",
-			cell: ({ row }) => <span>{row.original.brand.name}</span>,
+			cell: ({ row }) => <span>{row.original.brand?.name}</span>,
 		},
 		{
 			accessorKey: "stock",
@@ -110,6 +146,7 @@ const ManageProducts = ({ products }: { products: TProduct[] }) => {
 					<Button
 						onClick={() => router.push("/user/shop/products/add-product")}
 						size="sm"
+						className="cursor-pointer"
 					>
 						Add Product <Plus />
 					</Button>

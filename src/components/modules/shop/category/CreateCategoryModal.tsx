@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import NMButton from "@/components/ui/core/NMButton";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import {
@@ -20,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createCategory } from "@/services/category";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -64,7 +66,11 @@ const CreateCategoryModal = ({
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogTrigger asChild>
-				<Button>Create Category</Button>
+				<NMButton
+					btnLabel="Create Category"
+					btnIcon={<Plus />}
+					onClick={() => onOpenChange(true)}
+				/>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>

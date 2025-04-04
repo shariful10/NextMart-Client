@@ -37,7 +37,7 @@ import { TBrand, TCategory } from "@/types";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default function AddProductsForm() {
+const AddProductsForm = () => {
 	const [imageFiles, setImageFiles] = useState<File[] | []>([]);
 	const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 	const [categories, setCategories] = useState<TCategory[] | []>([]);
@@ -90,8 +90,6 @@ export default function AddProductsForm() {
 	const addSpec = () => {
 		appendSpec({ key: "", value: "" });
 	};
-
-	// console.log(specFields);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -155,7 +153,7 @@ export default function AddProductsForm() {
 
 	return (
 		<div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 ">
-			<div className="flex items-center space-x-4 mb-5 ">
+			<div className="flex items-center space-x-4 mb-5">
 				<Logo />
 
 				<h1 className="text-xl font-bold">Add Product</h1>
@@ -441,4 +439,6 @@ export default function AddProductsForm() {
 			</Form>
 		</div>
 	);
-}
+};
+
+export default AddProductsForm;

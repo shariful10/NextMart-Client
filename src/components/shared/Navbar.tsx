@@ -77,8 +77,12 @@ export const Navbar = () => {
 								<DropdownMenuContent className="absolute -left-5">
 									<DropdownMenuLabel>My Account</DropdownMenuLabel>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem>Profile</DropdownMenuItem>
-									<DropdownMenuItem>Dashboard</DropdownMenuItem>
+									<DropdownMenuItem>
+										<Link href="/profile">Profile</Link>
+									</DropdownMenuItem>
+									<DropdownMenuItem>
+										<Link href="/user/dashboard">Dashboard</Link>
+									</DropdownMenuItem>
 									<DropdownMenuItem>My Shop</DropdownMenuItem>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem
