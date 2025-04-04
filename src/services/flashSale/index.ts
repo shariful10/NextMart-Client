@@ -15,6 +15,7 @@ export const addFlashSale = async (productData: any): Promise<any> => {
 		});
 
 		revalidateTag("PRODUCT");
+
 		return res.json();
 	} catch (error: any) {
 		return Error(error);
@@ -29,7 +30,9 @@ export const getFlashSaleProducts = async () => {
 				tags: ["PRODUCT"],
 			},
 		});
+
 		const data = await res.json();
+
 		return data;
 	} catch (error: any) {
 		return Error(error.message);

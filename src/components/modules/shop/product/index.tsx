@@ -9,11 +9,11 @@ import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import DiscountModal from "./DiscountModal";
 
 const ManageProducts = ({ products }: { products: TProduct[] }) => {
 	const router = useRouter();
 	const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
-	console.log(selectedIds);
 
 	const handleView = (product: TProduct) => {
 		console.log("Viewing product:", product);
@@ -150,6 +150,10 @@ const ManageProducts = ({ products }: { products: TProduct[] }) => {
 					>
 						Add Product <Plus />
 					</Button>
+					<DiscountModal
+						selectedIds={selectedIds}
+						setSelectedIds={setSelectedIds}
+					/>
 				</div>
 			</div>
 			<NMTable columns={columns} data={products || []} />

@@ -35,7 +35,6 @@ const CreateBrandModal = () => {
 	} = form;
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-		console.log(data);
 		try {
 			const formData = new FormData();
 			formData.append("data", JSON.stringify(data));

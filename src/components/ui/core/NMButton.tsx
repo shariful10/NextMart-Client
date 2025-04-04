@@ -16,7 +16,10 @@ const NMButton = ({
 	onClick,
 }: TNMButtonProps) => {
 	return (
-		<Button onClick={onClick} className={cn("cursor-pointer", className)}>
+		<Button
+			onClick={onClick}
+			className={cn("cursor-pointer", className)}
+		>
 			<span>{btnLabel}</span> {btnIcon && btnIcon}
 		</Button>
 	);
