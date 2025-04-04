@@ -26,7 +26,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 					}
 					width={500}
 					height={500}
-					alt="product image"
+					alt={product?.name}
 					className="rounded-sm h-48 object-cover group-hover:scale-110 transition-all duration-500 ease-in-out"
 				/>
 				{product?.stock === 0 && (
