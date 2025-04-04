@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { TProduct } from "@/types";
+import { formatPrice } from "@/utils/formatPrice";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: TProduct }) => {
 	return (
 		<Card className="p-3">
-			<CardHeader className="relative p-0 h-48">
+			<CardHeader className="relative p-0 h-48 group">
 				<Image
 					src={
 						product?.imageUrls[0] ||
@@ -26,7 +27,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 					width={500}
 					height={500}
 					alt="product image"
-					className="rounded-sm h-48 object-cover"
+					className="rounded-sm h-48 object-cover group-hover:scale-110 transition-all duration-500 ease-in-out"
 				/>
 				{product?.stock === 0 && (
 					<div className="absolute left-2 top-0 bg-red-500 text-white px-2 rounded-full">
@@ -52,12 +53,16 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 						{product?.offerPrice ? (
 							<>
 								<span className="font-semibold mr-2 text-orange-400">
-									$ {product?.offerPrice}
+									{formatPrice(product?.offerPrice)}
 								</span>
-								<del className="font-semibold text-xs">$ {product?.price}</del>
+								<del className="font-semibold text-xs">
+									{formatPrice(product?.price)}
+								</del>
 							</>
 						) : (
-							<span className="font-semibold">$ {product?.price}</span>
+							<span className="font-semibold">
+								{formatPrice(product?.price)}
+							</span>
 						)}
 					</p>
 

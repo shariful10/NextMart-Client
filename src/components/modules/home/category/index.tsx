@@ -10,7 +10,7 @@ const Category = async () => {
 		<NMContainer className="my-20">
 			<SectionTitle title="Category" BtnUrl="/products" BtnLabel="View All" />
 			<div className="grid grid-cols-6 gap-8 my-5">
-				{categories?.map((category: TCategory, idx: number) => (
+				{categories?.slice(0, 6).map((category: TCategory, idx: number) => (
 					<CategoryCard key={idx} category={category} />
 				))}
 			</div>
