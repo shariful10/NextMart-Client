@@ -12,7 +12,7 @@ const ProductDetails = ({ product }: { product: TProduct }) => {
 					alt="product image"
 					width={500}
 					height={500}
-					className="rounded-md w-full object-cover h-80"
+					className="rounded-md w-full object-cover h-80 border-2 border-gray-200"
 				/>
 				<div className="grid grid-cols-3 gap-4 mt-5">
 					{product?.imageUrls.slice(0, 3).map((image: string, idx: number) => (
@@ -22,7 +22,7 @@ const ProductDetails = ({ product }: { product: TProduct }) => {
 							alt="product image"
 							width={500}
 							height={500}
-							className="rounded-md w-full object-cover h-40"
+							className="rounded-lg w-full object-cover h-40 p-2 border-2 border-gray-200"
 						/>
 					))}
 				</div>

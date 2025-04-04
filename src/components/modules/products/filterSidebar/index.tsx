@@ -49,9 +49,9 @@ const FilterSidebar = () => {
 				<h2 className="text-lg font-semibold mt-6">Product Types</h2>
 				<ul className="space-y-2 mt-2">
 					{productTypes.map((type, index) => (
-						<li key={index} className="flex items-center gap-2">
+						<li key={index} className="flex gap-2">
 							<Checkbox />
-							<span>{type}</span>
+							<span className="-mt-1">{type}</span>
 						</li>
 					))}
 				</ul>
