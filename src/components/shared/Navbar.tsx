@@ -54,12 +54,14 @@ export const Navbar = () => {
 					>
 						<Heart />
 					</Button>
-					<Button
-						variant="outline"
-						className="rounded-full p-0 size-10 cursor-pointer"
-					>
-						<ShoppingBag />
-					</Button>
+					<Link href="/cart">
+						<Button
+							variant="outline"
+							className="rounded-full p-0 size-10 cursor-pointer"
+						>
+							<ShoppingBag />
+						</Button>
+					</Link>
 					{user ? (
 						<>
 							<Link href="/create-shop">
