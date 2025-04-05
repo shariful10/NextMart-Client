@@ -8,11 +8,11 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { currencyFormatter } from "@/lib/currencyFormatter";
 import { addProduct } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hook";
 
 import { TProduct } from "@/types";
-import { formatPrice } from "@/utils/formatPrice";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,15 +61,15 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 						{product?.offerPrice ? (
 							<>
 								<span className="font-semibold mr-2 text-orange-400">
-									{formatPrice(product?.offerPrice)}
+									{currencyFormatter(product?.offerPrice)}
 								</span>
 								<del className="font-semibold text-xs">
-									{formatPrice(product?.price)}
+									{currencyFormatter(product?.price)}
 								</del>
 							</>
 						) : (
 							<span className="font-semibold">
-								{formatPrice(product?.price)}
+								{currencyFormatter(product?.price)}
 							</span>
 						)}
 					</p>

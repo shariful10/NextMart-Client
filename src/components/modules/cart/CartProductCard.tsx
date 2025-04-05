@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { TProduct } from "@/types";
-import { formatPrice } from "@/utils/formatPrice";
+import { currencyFormatter } from "@/lib/currencyFormatter";
+import { TCartProduct } from "@/redux/features/cartSlice";
 import { Minus, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 
-const CartProductCard = ({ product }: { product: TProduct }) => {
+const CartProductCard = ({ product }: { product: TCartProduct }) => {
 	return (
 		<div className="bg-white rounded-lg flex p-5 gap-5">
 			<div className="h-full w-32 rounded-md overflow-hidden">
@@ -32,7 +32,7 @@ const CartProductCard = ({ product }: { product: TProduct }) => {
 				<div className="flex items-center justify-between">
 					<h2>
 						Price:
-						{formatPrice(
+						{currencyFormatter(
 							product.offerPrice ? product.offerPrice : product.price
 						)}
 					</h2>
@@ -42,7 +42,7 @@ const CartProductCard = ({ product }: { product: TProduct }) => {
 							<Minus />
 						</Button>
 						<p className="font-semibold text-xl p-2">
-							{/* {product?.orderQuantity} */}1
+							{product?.orderQuantity}
 						</p>
 						<Button variant="outline" className="size-8 rounded-sm">
 							<Plus />

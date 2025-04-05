@@ -2,8 +2,12 @@ import { TProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+export interface TCartProduct extends TProduct {
+	orderQuantity: number;
+}
+
 type TInitialState = {
-	products: TProduct[];
+	products: TCartProduct[];
 };
 
 const initialState: TInitialState = {
@@ -15,7 +19,16 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addProduct: (state, action) => {
-			state.products.push(action.payload);
+			const productToAdd = state.products.find(
+				(product) => product._id === action.payload._id
+			);
+
+			if (productToAdd) {
+				productToAdd.orderQuantity += 1;
+				return;
+			}
+
+			state.products.push({ ...action.payload, orderQuantity: 1 });
 		},
 	},
 });
