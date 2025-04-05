@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export const getAllProducts = async (page?: string) => {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_API}/product?page=${page}`,
+			`${process.env.NEXT_PUBLIC_BASE_API}/product?page=${page}&limit=2`,
 			{
 				next: {
 					tags: ["PRODUCT"],
