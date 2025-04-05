@@ -97,9 +97,7 @@ export const Navbar = () => {
 						</>
 					) : (
 						<Link href="/login">
-							<Button variant="outline" className="rounded-full">
-								Login
-							</Button>
+							<Button className="rounded-full cursor-pointer">Login</Button>
 						</Link>
 					)}
 				</nav>

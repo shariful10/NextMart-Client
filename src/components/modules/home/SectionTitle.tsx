@@ -13,7 +13,7 @@ const SectionTitle = ({ title, BtnUrl, BtnLabel }: TSectionTitle) => {
 			<h2 className="font-bold text-3xl">{title}</h2>
 			{BtnLabel && (
 				<Link href={BtnUrl}>
-					<Button variant="outline" className="rounded-full">
+					<Button variant="outline" className="rounded-full cursor-pointer">
 						{BtnLabel}
 					</Button>
 				</Link>

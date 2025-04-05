@@ -19,7 +19,7 @@ const FlashSale = async () => {
 					</div>
 
 					<Link href="/products">
-						<Button variant="outline" className="rounded-full">
+						<Button variant="outline" className="rounded-full cursor-pointer">
 							All Collection
 						</Button>
 					</Link>

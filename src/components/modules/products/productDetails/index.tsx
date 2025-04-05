@@ -5,14 +5,14 @@ import Image from "next/image";
 
 const ProductDetails = ({ product }: { product: TProduct }) => {
 	return (
-		<div className="grid grid-cols-2 gap-4 border border-white p-4 rounded-md my-5 shadow-sm">
+		<div className="grid grid-cols-2 gap-4 border border-gray-100 p-4 rounded-md my-5 shadow-sm">
 			<div>
 				<Image
 					src={product?.imageUrls[0]}
 					alt="product image"
 					width={500}
 					height={500}
-					className="rounded-md w-full object-cover h-80 border-2 border-gray-200"
+					className="rounded-md w-full object-cover h-80 border-2 border-gray-100"
 				/>
 				<div className="grid grid-cols-3 gap-4 mt-5">
 					{product?.imageUrls.slice(0, 3).map((image: string, idx: number) => (
@@ -22,7 +22,7 @@ const ProductDetails = ({ product }: { product: TProduct }) => {
 							alt="product image"
 							width={500}
 							height={500}
-							className="rounded-lg w-full object-cover h-40 p-2 border-2 border-gray-200"
+							className="rounded-lg w-full object-cover h-40 p-2 border-2 border-gray-100"
 						/>
 					))}
 				</div>
