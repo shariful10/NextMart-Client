@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import NMTable from "@/components/ui/core/NMTable";
+import TablePagination from "@/components/ui/core/NMTable/TablePagination";
 import { TProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
@@ -157,6 +158,7 @@ const ManageProducts = ({ products }: { products: TProduct[] }) => {
 				</div>
 			</div>
 			<NMTable columns={columns} data={products || []} />
+			<TablePagination totalPage={10} />
 		</div>
 	);
 };
