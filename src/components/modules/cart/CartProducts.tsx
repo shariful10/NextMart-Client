@@ -1,9 +1,11 @@
 "use client";
 
 import emptyCart from "@/app/assets/empty-cart.png";
-import { orderedProductsSelector } from "@/redux/features/cartSlice";
+import {
+	orderedProductsSelector,
+	TCartProduct,
+} from "@/redux/features/cartSlice";
 import { useAppSelector } from "@/redux/hook";
-import { TProduct } from "@/types";
 import Image from "next/image";
 import CartProductCard from "./CartProductCard";
 
@@ -24,7 +26,7 @@ const CartProducts = () => {
 					</div>
 				</div>
 			)}
-			{products?.map((product: TProduct) => (
+			{products?.map((product: TCartProduct) => (
 				<CartProductCard key={product._id} product={product} />
 			))}
 		</div>
