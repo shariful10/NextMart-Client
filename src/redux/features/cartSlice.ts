@@ -78,6 +78,7 @@ export const orderSelector = (state: RootState) => {
 		products: state.cart.products.map((product) => ({
 			product: product._id,
 			quantity: product.orderQuantity,
+			color: "White",
 		})),
 		shippingAddress: `${state.cart.shippingAddress} - ${state.cart.city}`,
 		paymentMethod: "Online",

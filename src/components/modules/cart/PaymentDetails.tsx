@@ -53,17 +53,18 @@ const PaymentDetails = () => {
 				throw new Error("Cart is empty, what are you trying to order ??");
 			}
 
-			// const res = await createOrder(order);
+			const res = await createOrder(order);
+			console.log(res);
 
-			// if (res.success) {
-			// 	toast.success(res.message, { id: orderLoading });
-			// 	dispatch(clearCart());
-			// 	router.push(res.data.paymentUrl);
-			// }
+			if (res.success) {
+				toast.success(res.message, { id: orderLoading });
+				// dispatch(clearCart());
+				// router.push(res.data.paymentUrl);
+			}
 
-			// if (!res.success) {
-			// 	toast.error(res.message, { id: orderLoading });
-			// }
+			if (!res.success) {
+				toast.error(res.message, { id: orderLoading });
+			}
 		} catch (error: any) {
 			toast.error(error.message, { id: orderLoading });
 		}
