@@ -89,7 +89,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 						disabled={product?.stock === 0}
 						size="sm"
 						variant="outline"
-						className="w-32"
+						className="w-32 cursor-pointer"
 					>
 						Buy Now
 					</Button>
@@ -98,14 +98,14 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 						disabled={product?.stock === 0}
 						variant="outline"
 						size="sm"
-						className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+						className="w-8 h-8 p-0 flex items-center justify-center rounded-full cursor-pointer"
 					>
 						<ShoppingCart />
 					</Button>
 					<Button
 						variant="outline"
 						size="sm"
-						className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+						className="w-8 h-8 p-0 flex items-center justify-center rounded-full cursor-pointer"
 					>
 						<Heart />
 					</Button>
