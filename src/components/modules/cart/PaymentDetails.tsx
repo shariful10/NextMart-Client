@@ -5,6 +5,7 @@ import { useUser } from "@/context/UserContext";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
 	citySelector,
+	clearCart,
 	grandTotalSelector,
 	orderedProductsSelector,
 	orderSelector,
@@ -23,8 +24,8 @@ const PaymentDetails = () => {
 	const subTotal = useAppSelector(subTotalSelector);
 	const grandTotal = useAppSelector(grandTotalSelector);
 	const shippingCost = useAppSelector(shippingCostSelector);
-	const shippingAddress = useAppSelector(shippingAddressSelector);
 	const cartProducts = useAppSelector(orderedProductsSelector);
+	const shippingAddress = useAppSelector(shippingAddressSelector);
 
 	const user = useUser();
 
@@ -58,8 +59,8 @@ const PaymentDetails = () => {
 
 			if (res.success) {
 				toast.success(res.message, { id: orderLoading });
-				// dispatch(clearCart());
-				// router.push(res.data.paymentUrl);
+				dispatch(clearCart());
+				router.push(res?.data?.paymentUrl);
 			}
 
 			if (!res.success) {
