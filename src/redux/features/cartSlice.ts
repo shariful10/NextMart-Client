@@ -8,10 +8,14 @@ export interface TCartProduct extends TProduct {
 
 type TInitialState = {
 	products: TCartProduct[];
+	city: string;
+	shippingAddress: string;
 };
 
 const initialState: TInitialState = {
 	products: [],
+	city: "",
+	shippingAddress: "",
 };
 
 const cartSlice = createSlice({
@@ -55,13 +59,21 @@ const cartSlice = createSlice({
 				(product) => product._id !== action.payload
 			);
 		},
+		updateCity: (state, action) => {
+			state.city = action.payload;
+		},
+		updateShippingAddress: (state, action) => {
+			state.shippingAddress = action.payload;
+		},
 	},
 });
 
+//* Product
 export const orderedProductsSelector = (state: RootState) => {
 	return state.cart.products;
 };
 
+//* Payment
 export const subTotalSelector = (state: RootState) => {
 	return state.cart.products.reduce((acc, product) => {
 		if (product.offerPrice) {
@@ -72,9 +84,20 @@ export const subTotalSelector = (state: RootState) => {
 	}, 0);
 };
 
+//* Address
+export const citySelector = (state: RootState) => {
+	return state.cart.city;
+};
+
+export const shippingAddressSelector = (state: RootState) => {
+	return state.cart.shippingAddress;
+};
+
 export const {
+	updateCity,
 	addProduct,
 	removeProduct,
+	updateShippingAddress,
 	incrementOrderQuantity,
 	decrementOrderQuantity,
 } = cartSlice.actions;
