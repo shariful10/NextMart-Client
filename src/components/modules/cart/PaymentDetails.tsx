@@ -3,16 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
 import { currencyFormatter } from "@/lib/currencyFormatter";
-import { subTotalSelector } from "@/redux/features/cartSlice";
+import {
+	orderSelector,
+	shippingCostSelector,
+	subTotalSelector,
+} from "@/redux/features/cartSlice";
 import { useAppSelector } from "@/redux/hook";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const PaymentDetails = () => {
 	const subTotal = useAppSelector(subTotalSelector);
-	// const shippingCost = useAppSelector(shippingCostSelector);
+	const shippingCost = useAppSelector(shippingCostSelector);
 	// const grandTotal = useAppSelector(grandTotalSelector);
-	// const order = useAppSelector(orderSelector);
+	const order = useAppSelector(orderSelector);
 	// const city = useAppSelector(citySelector);
 	// const shippingAddress = useAppSelector(shippingAddressSelector);
 	// const cartProducts = useAppSelector(orderedProductsSelector);
@@ -67,7 +71,7 @@ const PaymentDetails = () => {
 				</div>
 				<div className="flex justify-between">
 					<p className="text-gray-500 ">Shipment Cost</p>
-					<p className="font-semibold">{currencyFormatter(50)}</p>
+					<p className="font-semibold">{currencyFormatter(shippingCost)}</p>
 				</div>
 			</div>
 			<div className="flex justify-between mt-10 mb-5">
