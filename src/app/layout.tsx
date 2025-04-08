@@ -26,16 +26,16 @@ const RootLayout = ({
 	children: ReactNode;
 }>) => {
 	return (
-		<Providers>
-			<html lang="en">
-				<body
-					className={`${geistSans.variable} ${geistMono.className} antialiased`}
-				>
+		<html lang="en">
+			<body
+				className={`${geistSans.variable} ${geistMono.className} antialiased`}
+			>
+				<Providers>
 					<Toaster richColors position="top-right" />
 					{children}
-				</body>
-			</html>
-		</Providers>
+				</Providers>
+			</body>
+		</html>
 	);
 };
 
