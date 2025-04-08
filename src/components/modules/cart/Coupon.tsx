@@ -19,9 +19,9 @@ const Coupon = () => {
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			console.log(data);
-		} catch (error: any) {
-			console.log(error);
-			toast.error(error.message);
+		} catch (err: any) {
+			console.log(err);
+			toast.error(err.message);
 		}
 	};
 
@@ -41,7 +41,6 @@ const Coupon = () => {
 									<FormControl>
 										<Input
 											{...field}
-											className="rounded-full"
 											placeholder="Promo / Coupon code"
 											value={field.value}
 										/>
