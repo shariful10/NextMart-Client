@@ -10,3 +10,9 @@ export type TOrderProduct = {
 	quantity: number;
 	color: string;
 };
+
+export type TCoupon = {
+	shopId: string;
+	orderAmount: number;
+	couponCode: string;
+};

@@ -10,12 +10,14 @@ type TInitialState = {
 	products: TCartProduct[];
 	city: string;
 	shippingAddress: string;
+	shopId: string;
 };
 
 const initialState: TInitialState = {
 	products: [],
 	city: "",
 	shippingAddress: "",
+	shopId: "",
 };
 
 const cartSlice = createSlice({
@@ -23,6 +25,10 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addProduct: (state, action) => {
+			if (state.products.length === 0) {
+				state.shopId = action.payload.shop._id;
+			}
+
 			const productToAdd = state.products.find(
 				(product) => product._id === action.payload._id
 			);
@@ -72,6 +78,10 @@ const cartSlice = createSlice({
 		},
 	},
 });
+
+export const shopSelector = (state: RootState) => {
+	return state.cart.shopId;
+};
 
 //* Product
 export const orderedProductsSelector = (state: RootState) => {

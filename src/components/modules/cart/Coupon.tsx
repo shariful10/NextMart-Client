@@ -3,12 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { shopSelector, subTotalSelector } from "@/redux/features/cartSlice";
+import { useAppSelector } from "@/redux/hook";
+import { addCoupon } from "@/services/cart";
 import { Trash } from "lucide-react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const Coupon = () => {
 	const form = useForm();
+
+	const shopId = useAppSelector(shopSelector);
+	const subTotal = useAppSelector(subTotalSelector);
 
 	const couponInput = form.watch("coupon");
 
@@ -18,7 +24,20 @@ const Coupon = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			console.log(data);
+			const couponData = {
+				shopId,
+				orderAmount: subTotal,
+				couponCode: data.coupon,
+			};
+
+			const res = await addCoupon(couponData);
+			console.log(res);
+
+			// if (res.error) {
+			// 	toast.error(res.error);
+			// } else {
+			// 	toast.error(res.message);
+			// }
 		} catch (err: any) {
 			console.log(err);
 			toast.error(err.message);
@@ -52,7 +71,7 @@ const Coupon = () => {
 							<Button
 								disabled={!couponInput}
 								type="submit"
-								className="w-full text-xl font-semibold py-5 "
+								className="w-full text-xl font-semibold py-5 cursor-pointer"
 							>
 								Apply
 							</Button>
@@ -60,7 +79,7 @@ const Coupon = () => {
 								<Button
 									onClick={handleRemoveCoupon}
 									variant="outline"
-									className="bg-red-100 rounded-full size-10"
+									className="bg-red-100 rounded-full size-10 cursor-pointer"
 								>
 									<Trash size={24} className="text-red-500" />
 								</Button>
