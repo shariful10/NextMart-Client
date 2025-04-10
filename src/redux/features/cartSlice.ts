@@ -1,5 +1,6 @@
-import { TProduct } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { addCoupon } from "@/services/cart";
+import { TCoupon, TProduct } from "@/types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface TCartProduct extends TProduct {
@@ -19,6 +20,19 @@ const initialState: TInitialState = {
 	shippingAddress: "",
 	shopId: "",
 };
+
+export const fetchCoupon = createAsyncThunk(
+	"cart/fetchCoupon",
+	async ({ shopId, orderAmount, couponCode }: TCoupon) => {
+		try {
+			const res = await addCoupon({ shopId, orderAmount, couponCode });
+			return res;
+		} catch (err: any) {
+			console.error("Error fetching coupon:", err);
+			throw new Error(err.message);
+		}
+	}
+);
 
 const cartSlice = createSlice({
 	name: "cart",
@@ -76,6 +90,17 @@ const cartSlice = createSlice({
 			state.city = "";
 			state.shippingAddress = "";
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(fetchCoupon.pending, (state, action) => {
+			console.log("pending", action);
+		});
+		builder.addCase(fetchCoupon.rejected, (state, action) => {
+			console.log("rejected", action);
+		});
+		builder.addCase(fetchCoupon.fulfilled, (state, action) => {
+			console.log("fulfilled", action);
+		});
 	},
 });
 
