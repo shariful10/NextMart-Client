@@ -1,6 +1,5 @@
-import { addCoupon } from "@/services/cart";
-import { TCoupon, TProduct } from "@/types";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { TProduct } from "@/types";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface TCartProduct extends TProduct {
@@ -20,19 +19,6 @@ const initialState: TInitialState = {
 	shippingAddress: "",
 	shopId: "",
 };
-
-export const fetchCoupon = createAsyncThunk(
-	"cart/fetchCoupon",
-	async ({ shopId, orderAmount, couponCode }: TCoupon) => {
-		try {
-			const res = await addCoupon({ shopId, orderAmount, couponCode });
-			return res;
-		} catch (err: any) {
-			console.error("Error fetching coupon:", err);
-			throw new Error(err.message);
-		}
-	}
-);
 
 const cartSlice = createSlice({
 	name: "cart",
@@ -91,28 +77,19 @@ const cartSlice = createSlice({
 			state.shippingAddress = "";
 		},
 	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchCoupon.pending, (state, action) => {
-			console.log("pending", action);
-		});
-		builder.addCase(fetchCoupon.rejected, (state, action) => {
-			console.log("rejected", action);
-		});
-		builder.addCase(fetchCoupon.fulfilled, (state, action) => {
-			console.log("fulfilled", action);
-		});
-	},
 });
 
+//* Shop selector
 export const shopSelector = (state: RootState) => {
 	return state.cart.shopId;
 };
 
-//* Product
+//* Ordered product selector
 export const orderedProductsSelector = (state: RootState) => {
 	return state.cart.products;
 };
 
+//* Order selector
 export const orderSelector = (state: RootState) => {
 	return {
 		products: state.cart.products.map((product) => ({
@@ -126,6 +103,8 @@ export const orderSelector = (state: RootState) => {
 };
 
 //* Payment
+
+//* Order sub total selector
 export const subTotalSelector = (state: RootState) => {
 	return state.cart.products.reduce((acc, product) => {
 		if (product.offerPrice) {
@@ -136,6 +115,7 @@ export const subTotalSelector = (state: RootState) => {
 	}, 0);
 };
 
+//* Shipping cost selector
 export const shippingCostSelector = (state: RootState) => {
 	if (
 		state.cart.city &&
@@ -154,6 +134,7 @@ export const shippingCostSelector = (state: RootState) => {
 	}
 };
 
+//* Grand total selector
 export const grandTotalSelector = (state: RootState) => {
 	const subTotal = subTotalSelector(state);
 	const shippingCost = shippingCostSelector(state);

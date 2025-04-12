@@ -7,11 +7,13 @@ import { shopSelector, subTotalSelector } from "@/redux/features/cartSlice";
 import { useAppSelector } from "@/redux/hook";
 import { addCoupon } from "@/services/cart";
 import { Trash } from "lucide-react";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const Coupon = () => {
 	const form = useForm();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const shopId = useAppSelector(shopSelector);
 	const subTotal = useAppSelector(subTotalSelector);
@@ -73,7 +75,7 @@ const Coupon = () => {
 								type="submit"
 								className="w-full text-xl font-semibold py-5 cursor-pointer"
 							>
-								Apply
+								{isLoading ? "Applying..." : "Apply"}
 							</Button>
 							{couponInput && (
 								<Button

@@ -15,8 +15,8 @@ export const createOrder = async (order: TOrder) => {
 		});
 
 		return await res.json();
-	} catch (error: any) {
-		return Error(error);
+	} catch (err: any) {
+		return Error(err);
 	}
 };
 
@@ -39,7 +39,7 @@ export const addCoupon = async ({
 		);
 
 		return await res.json();
-	} catch (error: any) {
-		return Error(error);
+	} catch (err: any) {
+		return Error(err);
 	}
 };
