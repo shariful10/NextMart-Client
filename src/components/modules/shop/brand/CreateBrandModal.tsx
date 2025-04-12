@@ -56,7 +56,7 @@ const CreateBrandModal = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<NMButton btnLabel="Create Category" btnIcon={<Plus />} />
+				<NMButton btnLabel="Create Brand" btnIcon={<Plus />} />
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -96,7 +96,7 @@ const CreateBrandModal = () => {
 							)}
 						</div>
 
-						<Button type="submit" className="mt-5 w-full">
+						<Button type="submit" className="mt-5 w-full cursor-pointer">
 							{isSubmitting ? "Creating...." : "Create"}
 						</Button>
 					</form>
