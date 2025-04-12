@@ -32,7 +32,11 @@ const Coupon = () => {
 				couponCode: data.coupon,
 			};
 
-			const res = await addCoupon(couponData);
+			const res = await addCoupon(
+				couponData.shopId,
+				couponData.orderAmount,
+				couponData.couponCode
+			);
 			console.log(res);
 
 			// if (res.error) {
@@ -75,7 +79,7 @@ const Coupon = () => {
 								type="submit"
 								className="w-full text-xl font-semibold py-5 cursor-pointer"
 							>
-								{isLoading ? "Applying..." : "Apply"}
+								{isLoading ? "Applying..." : "Apply Coupon"}
 							</Button>
 							{couponInput && (
 								<Button

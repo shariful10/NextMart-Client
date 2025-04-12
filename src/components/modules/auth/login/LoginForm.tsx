@@ -21,8 +21,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginSchema } from "./loginValidation";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
+	const { setIsLoading } = useUser();
+
 	const form = useForm({
 		resolver: zodResolver(loginSchema),
 	});
@@ -40,7 +43,6 @@ const LoginForm = () => {
 	const handleReCaptcha = async (value: string | null) => {
 		try {
 			const res = await reCaptchaTokenVerification(value!);
-			console.log(res);
 
 			if (res?.success) {
 				setReCaptchaStatus(true);
@@ -53,6 +55,7 @@ const LoginForm = () => {
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			const res = await loginUser(data);
+			setIsLoading(true);
 
 			if (res?.success) {
 				toast.success(res?.message);
@@ -60,7 +63,7 @@ const LoginForm = () => {
 				if (redirect) {
 					router.push(redirect);
 				} else {
-					router.push("/profile");
+					router.push("/");
 				}
 			} else {
 				toast.error(res?.message);

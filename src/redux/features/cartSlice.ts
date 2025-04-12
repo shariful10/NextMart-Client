@@ -1,24 +1,63 @@
 import { TProduct } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { addCoupon } from "@/services/cart";
 
-export interface TCartProduct extends TProduct {
+export interface CartProduct extends TProduct {
 	orderQuantity: number;
 }
 
-type TInitialState = {
-	products: TCartProduct[];
+interface InitialState {
+	products: CartProduct[];
 	city: string;
 	shippingAddress: string;
 	shopId: string;
-};
+	coupon: {
+		code: string;
+		discountAmount: number;
+		isLoading: boolean;
+		error: string;
+	};
+}
 
-const initialState: TInitialState = {
+const initialState: InitialState = {
 	products: [],
 	city: "",
 	shippingAddress: "",
 	shopId: "",
+	coupon: {
+		code: "",
+		discountAmount: 0,
+		isLoading: false,
+		error: "",
+	},
 };
+
+export const fetchCoupon = createAsyncThunk(
+	"cart/fetchCoupon",
+	async ({
+		couponCode,
+		subTotal,
+		shopId,
+	}: {
+		couponCode: string;
+		subTotal: number;
+		shopId: string;
+	}) => {
+		try {
+			const res = await addCoupon(couponCode, subTotal, shopId);
+
+			if (!res.success) {
+				throw new Error(res.message);
+			}
+
+			return res;
+		} catch (err: any) {
+			console.log(err);
+			throw new Error(err.message);
+		}
+	}
+);
 
 const cartSlice = createSlice({
 	name: "cart",
@@ -51,12 +90,12 @@ const cartSlice = createSlice({
 			}
 		},
 		decrementOrderQuantity: (state, action) => {
-			const productToDecrement = state.products.find(
+			const productToIncrement = state.products.find(
 				(product) => product._id === action.payload
 			);
 
-			if (productToDecrement && productToDecrement.orderQuantity > 1) {
-				productToDecrement.orderQuantity -= 1;
+			if (productToIncrement && productToIncrement.orderQuantity > 1) {
+				productToIncrement.orderQuantity -= 1;
 				return;
 			}
 		},
@@ -77,19 +116,32 @@ const cartSlice = createSlice({
 			state.shippingAddress = "";
 		},
 	},
+	extraReducers: (builder) => {
+		builder.addCase(fetchCoupon.pending, (state) => {
+			state.coupon.isLoading = true;
+			state.coupon.error = "";
+		});
+		builder.addCase(fetchCoupon.rejected, (state, action) => {
+			state.coupon.isLoading = false;
+			state.coupon.error = action.error.message as string;
+			state.coupon.code = "";
+			state.coupon.discountAmount = 0;
+		});
+		builder.addCase(fetchCoupon.fulfilled, (state, action) => {
+			state.coupon.isLoading = false;
+			state.coupon.error = "";
+			state.coupon.code = action.payload.data.coupon.code;
+			state.coupon.discountAmount = action.payload.data.discountAmount;
+		});
+	},
 });
 
-//* Shop selector
-export const shopSelector = (state: RootState) => {
-	return state.cart.shopId;
-};
+//* Products
 
-//* Ordered product selector
 export const orderedProductsSelector = (state: RootState) => {
 	return state.cart.products;
 };
 
-//* Order selector
 export const orderSelector = (state: RootState) => {
 	return {
 		products: state.cart.products.map((product) => ({
@@ -102,9 +154,12 @@ export const orderSelector = (state: RootState) => {
 	};
 };
 
+export const shopSelector = (state: RootState) => {
+	return state.cart.shopId;
+};
+
 //* Payment
 
-//* Order sub total selector
 export const subTotalSelector = (state: RootState) => {
 	return state.cart.products.reduce((acc, product) => {
 		if (product.offerPrice) {
@@ -115,7 +170,6 @@ export const subTotalSelector = (state: RootState) => {
 	}, 0);
 };
 
-//* Shipping cost selector
 export const shippingCostSelector = (state: RootState) => {
 	if (
 		state.cart.city &&
@@ -134,15 +188,24 @@ export const shippingCostSelector = (state: RootState) => {
 	}
 };
 
-//* Grand total selector
 export const grandTotalSelector = (state: RootState) => {
 	const subTotal = subTotalSelector(state);
 	const shippingCost = shippingCostSelector(state);
+	const discountAmount = discountAmountSelector(state);
 
-	return subTotal + shippingCost;
+	return subTotal - discountAmount + shippingCost;
+};
+
+export const couponSelector = (state: RootState) => {
+	return state.cart.coupon;
+};
+
+export const discountAmountSelector = (state: RootState) => {
+	return state.cart.coupon.discountAmount;
 };
 
 //* Address
+
 export const citySelector = (state: RootState) => {
 	return state.cart.city;
 };
@@ -152,12 +215,12 @@ export const shippingAddressSelector = (state: RootState) => {
 };
 
 export const {
-	clearCart,
-	updateCity,
 	addProduct,
-	removeProduct,
-	updateShippingAddress,
 	incrementOrderQuantity,
 	decrementOrderQuantity,
+	removeProduct,
+	updateCity,
+	updateShippingAddress,
+	clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

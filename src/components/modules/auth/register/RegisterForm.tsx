@@ -12,6 +12,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/context/UserContext";
 import { registerUser } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -20,6 +21,8 @@ import { toast } from "sonner";
 import { registrationSchema } from "./registerValidation";
 
 const RegisterForm = () => {
+	const { setIsLoading } = useUser();
+
 	const form = useForm({
 		resolver: zodResolver(registrationSchema),
 	});
@@ -34,6 +37,7 @@ const RegisterForm = () => {
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			const res = await registerUser(data);
+			setIsLoading(true);
 
 			if (res?.success) {
 				toast.success(res?.message);

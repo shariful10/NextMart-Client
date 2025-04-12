@@ -6,6 +6,7 @@ import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
 	citySelector,
 	clearCart,
+	discountAmountSelector,
 	grandTotalSelector,
 	orderedProductsSelector,
 	orderSelector,
@@ -22,6 +23,7 @@ const PaymentDetails = () => {
 	const city = useAppSelector(citySelector);
 	const order = useAppSelector(orderSelector);
 	const subTotal = useAppSelector(subTotalSelector);
+	const discountAmount = useAppSelector(discountAmountSelector);
 	const grandTotal = useAppSelector(grandTotalSelector);
 	const shippingCost = useAppSelector(shippingCostSelector);
 	const cartProducts = useAppSelector(orderedProductsSelector);
@@ -81,7 +83,7 @@ const PaymentDetails = () => {
 				</div>
 				<div className="flex justify-between">
 					<p className="text-gray-500 ">Discount</p>
-					<p className="font-semibold">{currencyFormatter(0)}</p>
+					<p className="font-semibold">{currencyFormatter(discountAmount)}</p>
 				</div>
 				<div className="flex justify-between">
 					<p className="text-gray-500 ">Shipment Cost</p>
