@@ -25,13 +25,15 @@ const FilterSidebar = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true);
+
 			try {
 				const [{ data: categoriesData }, { data: brandsData }] =
 					await Promise.all([getAllCategories(), getAllBrands()]);
+
 				setCategories(categoriesData);
 				setBrands(brandsData);
-			} catch (error: any) {
-				console.error(error);
+			} catch (err: any) {
+				console.error(err);
 				toast.error("Failed to fetch filters");
 			} finally {
 				setIsLoading(false);
@@ -52,9 +54,9 @@ const FilterSidebar = () => {
 	};
 
 	return (
-		<div className="p-6 bg-white rounded-lg border-2 border-gray-100 w-[275px]">
+		<div className="p-6 bg-white rounded-lg">
 			<div className="flex justify-between items-center mb-6">
-				<h2 className="text-xl font-semibold">Filter</h2>
+				<h2 className="text-xl font-semibold py-1">Filter</h2>
 				{searchParams.toString().length > 0 && (
 					<Button
 						onClick={() => {
@@ -83,7 +85,7 @@ const FilterSidebar = () => {
 						setPrice(value);
 						handleSearchQuery("price", value[0]);
 					}}
-					className="w-full"
+					className="w-full py-1"
 				/>
 				<p className="text-sm mt-2">
 					Selected Price: {currencyFormatter(price[0])}

@@ -3,7 +3,11 @@ import { getValidToken } from "@/lib/verifyToken";
 import { revalidateTag } from "next/cache";
 
 // Get all products
-export const getAllProducts = async (page?: string, limit?: string) => {
+export const getAllProducts = async (
+	page?: string,
+	limit?: string,
+	query?: Record<string, string>
+) => {
 	try {
 		const res = await fetch(
 			`${process.env.NEXT_PUBLIC_BASE_API}/product?page=${page}&limit=${limit}`,

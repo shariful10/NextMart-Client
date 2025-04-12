@@ -5,7 +5,7 @@ import FilterSidebar from "./filterSidebar";
 const Products = ({ products }: { products: TProduct[] }) => {
 	return (
 		<div className="flex gap-8 my-10">
-			<div>
+			<div className="w-full max-w-sm border-2 border-gray-200 rounded-xl">
 				<FilterSidebar />
 			</div>
 			<div>

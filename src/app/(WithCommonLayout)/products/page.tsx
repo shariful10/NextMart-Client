@@ -6,9 +6,15 @@ import { getAllCategories } from "@/services/category";
 import { getAllProducts } from "@/services/product";
 import { TCategory } from "@/types";
 
-const ProductsPage = async () => {
+type TSearchParams = {
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+const ProductsPage = async ({ searchParams }: TSearchParams) => {
+	const query = await searchParams;
+
 	const { data: categories } = await getAllCategories();
-	const { data: products } = await getAllProducts();
+	const { data: products } = await getAllProducts(undefined, undefined, query);
 
 	return (
 		<NMContainer>
